@@ -21,3 +21,4 @@
       - curl # HTTPクライアント
       - wget # HTTPクライアント
     autoremove: true
+    update_cache: true
