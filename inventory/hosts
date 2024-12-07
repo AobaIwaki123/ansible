@@ -6,3 +6,4 @@ proxmox_lxc:
   hosts:
     ansible.lxc:
     kotlin.lxc:
+    isucon.lxc:
