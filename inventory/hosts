@@ -9,5 +9,5 @@ proxmox_lxc:
     isucon.lxc:
 isucon:
   hosts:
-      private-isu-share.isucon:
-      private-isu-share-bench.isucon:
+    private-isu-share.isucon:
+    private-isu-share-bench.isucon:
