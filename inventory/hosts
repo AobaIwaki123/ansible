@@ -6,3 +6,8 @@ proxmox_lxc:
   hosts:
     ansible.lxc:
     kotlin.lxc:
+    isucon.lxc:
+isucon:
+  hosts:
+    private-isu-share.isucon:
+    private-isu-share-bench.isucon:

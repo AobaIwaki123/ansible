@@ -1,0 +1,6 @@
+---
+- name: Initialize LXC
+  hosts: isucon
+  roles:
+    - {role: basic_apt_package, basic_apt_package_apt_upgrade: false}
+    - default_configs

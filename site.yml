@@ -6,3 +6,7 @@
 - name: Initialize LXC
   import_playbook: playbooks/init-lxc/playbook.yml
   tags: init-lxc
+
+- name: Initialize ISUCON
+  import_playbook: playbooks/init-isucon/playbook.yml
+  tags: init-isucon
