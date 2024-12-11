@@ -1,7 +1,8 @@
 ---
 proxmox_vm:
   hosts:
-    hnz.house:
+    hnz.vm:
+    terraform.vm:
 proxmox_lxc:
   hosts:
     ansible.lxc:
