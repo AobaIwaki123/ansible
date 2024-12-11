@@ -5,6 +5,9 @@ TAG_NAME ?= "all"
 role:
 	@cp -r roles/template roles/$(ROLE_NAME)
 
+ssh-config:
+	@cp -r ssh_config.d ~/.ssh/
+
 ping:
 	@ansible -i inventory/hosts all -m ping
 
