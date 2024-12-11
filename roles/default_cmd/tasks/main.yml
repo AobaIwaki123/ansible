@@ -6,7 +6,21 @@
   ansible.builtin.copy:
     src: files/task
     dest: /usr/local/bin/task
-    owner: "{{ ansible_facts['env']['USER'] }}"
-    group: "{{ ansible_facts['env']['USER'] }}"
+    owner: root
+    group: root
     mode: '0744'
-    backup: true
+
+- name: Set Bash Completion for Task
+  become: true
+  ansible.builtin.copy:
+    src: files/task_completion
+    dest: /etc/bash_completion.d/task_completion
+    owner: root
+    group: root
+    mode: '0744'
+
+- name: Ensure task_completion is sourced in .bashrc
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    line: "source /etc/bash_completion.d/task_completion"
+    state: present
