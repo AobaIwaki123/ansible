@@ -3,6 +3,7 @@ proxmox_vm:
   hosts:
     hnz.vm:
     terraform.vm:
+    monitor.vm:
 proxmox_lxc:
   hosts:
     ansible.lxc:

@@ -46,15 +46,15 @@ $ task lint-ansible
 ### Roleの実行前に差分を確認
 
 ```sh
-$ task check-ansible-diff -- TAG_NAME={TAG_NAME} # Tagを指定して実行
-$ task check-ansible-diff -- HOST_NAME={HOST_NAME} # Hostを指定して実行
+$ task check-ansible-diff -v TAG_NAME={TAG_NAME} # Tagを指定して実行
+$ task check-ansible-diff -v HOST_NAME={HOST_NAME} # Hostを指定して実行
 ```
 
 ### Roleの実行
 
 ```sh
-$ task apply-ansible-playbook -- TAG_NAME={TAG_NAME} # Tagを指定して実行
-$ task apply-ansible-playbook -- HOST_NAME={HOST_NAME} # Hostを指定して実行
+$ task apply-ansible-playbook -v TAG_NAME={TAG_NAME} # Tagを指定して実行
+$ task apply-ansible-playbook -v HOST_NAME={HOST_NAME} # Hostを指定して実行
 ```
 
 ## Ansible Factsを全て表示するタスク
