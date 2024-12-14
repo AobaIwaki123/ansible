@@ -8,3 +8,4 @@ proxmox_lxc:
   hosts:
     ansible.lxc:
     kotlin.lxc:
+    bot.lxc:
