@@ -52,6 +52,5 @@ tasks:
   clean-branch:
     cmds:
       - git remote prune origin
-      - git branch | xargs git branch -d
+      - git branch --merged | grep -v '*' | grep -v 'master' | grep -v 'main' | xargs -I % git branch -d %
     desc: リモートに存在しないブランチとマージ済みのブランチを削除します
-    silent: true
