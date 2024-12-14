@@ -9,22 +9,36 @@
 - Ansible: 11.0.0, https://github.com/ansible/ansible
   - Ansible Core: 2.18.0
 
+## SSH Configの設定
+
+- `~/.ssh/config`に以下の設定を追加する
+
+```sh
+Include ~/.ssh/config.d/*.conf
+```
+
+- Ansible用のホストを`./ssh_config.d/`に設定し、以下のコマンドを実行する
+
+```sh
+$ task apply-ssh-config
+```
+
 ## Ansible Roleの雛形の作成
 
 ```sh
-$ make role ROLE_NAME=role_name
+$ task create-ansible-role -- MY_ROLE
 ```
 
 ## 疎通確認
 
 ```sh
-$ make ping
+$ task ping-ansible-host
 ```
 
-## Ansible Playbookの構文チェック
+## AnsibleのRoleやPlaybookの構文チェック
 
 ```sh
-$ make syntax-check
+$ task lint-ansible
 ```
 
 ## Ansible Playbookの実行
@@ -32,15 +46,15 @@ $ make syntax-check
 ### Roleの実行前に差分を確認
 
 ```sh
-$ make check-diff TAG_NAME={TAG_NAME} # Tagを指定して実行
-$ make check-diff HOST_NAME={HOST_NAME} # Hostを指定して実行
+$ task check-ansible-diff -- TAG_NAME={TAG_NAME} # Tagを指定して実行
+$ task check-ansible-diff -- HOST_NAME={HOST_NAME} # Hostを指定して実行
 ```
 
 ### Roleの実行
 
 ```sh
-$ make apply-role TAG_NAME={TAG_NAME} # Tagを指定して実行
-$ make apply-role HOST_NAME={HOST_NAME} # Hostを指定して実行
+$ task apply-ansible-playbook -- TAG_NAME={TAG_NAME} # Tagを指定して実行
+$ task apply-ansible-playbook -- HOST_NAME={HOST_NAME} # Hostを指定して実行
 ```
 
 ## Ansible Factsを全て表示するタスク
@@ -49,6 +63,14 @@ $ make apply-role HOST_NAME={HOST_NAME} # Hostを指定して実行
 - name: Print all available facts
   ansible.builtin.debug:
     var: ansible_facts
+```
+
+## 便利コマンド
+
+- リモートに存在しないブランチとマージ済みのブランチを削除する
+
+```sh
+$ task clean-branch
 ```
 
 ## その他のドキュメント
