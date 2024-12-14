@@ -1,6 +1,57 @@
 version: '3'
 
 tasks:
-  echo:
+  help:
     cmds:
-      - echo "Hello, World!"
+      - task --list
+    desc: 利用可能なタスクを表示します
+    silent: true
+
+  create-ansible-role:
+    cmds:
+      - ansible-galaxy init roles/{{.CLI_ARGS}}
+    desc: AnsibleのRoleの雛形を作成します. 例 task create-ansible-role -- MY_ROLE
+    silent: true
+
+  ping-ansible-hosts:
+    cmds:
+      - ansible -i inventory/hosts all -m ping
+    desc: Ansibleを実行するホストにPingを送信します
+    silent: true
+
+  lint-ansible:
+    cmds:
+      - ansible-lint
+    desc: AnsibleのRoleやPlaybookをAnsible Lintでチェックします
+    silent: true
+
+  check-ansible-diff:
+    cmds:
+      - ansible-playbook -i inventory/hosts site.yml --check --diff --limit {{.HOST_NAME}} --tags {{.TAG_NAME}}
+    desc: AnsibleのPlaybookの差分を確認します. 例 task check-ansible-diff -- HOST_NAME=HOST_NAME TAG_NAME=TAG_NAME
+    vars:
+      HOST_NAME: "all"
+      TAG_NAME: "all"
+    silent: true
+
+  apply-ansible-playbook:
+    cmds:
+      - ansible-playbook -i inventory/hosts site.yml --limit {{.HOST_NAME}} --tags {{.TAG_NAME}}
+    desc: AnsibleのPlaybookを適用します. 例 task apply-ansible-playbook -- HOST_NAME=HOST_NAME TAG_NAME=TAG_NAME
+    vars:
+      HOST_NAME: "all"
+      TAG_NAME: "all"
+    silent: true
+
+  apply-ssh-config:
+    cmds:
+      - cp -r ssh_config.d ~/.ssh/
+    desc: Ansibleホストに関するSSH Configを適用します
+    silent: true
+
+  clean-branch:
+    cmds:
+      - git remote prune origin
+      - git branch | xargs git branch -d
+    desc: リモートに存在しないブランチとマージ済みのブランチを削除します
+    silent: true
