@@ -6,7 +6,7 @@ tasks:
       - task --list
     desc: 利用可能なタスクを表示します
     silent: true
-
+  
   create-ansible-role:
     cmds:
       - ansible-galaxy init roles/{{.CLI_ARGS}}
@@ -28,20 +28,24 @@ tasks:
   check-ansible-diff:
     cmds:
       - ansible-playbook -i inventory/hosts site.yml --check --diff --limit {{.HOST_NAME}} --tags {{.TAG_NAME}}
-    desc: AnsibleのPlaybookの差分を確認します. 例 task check-ansible-diff -- HOST_NAME=HOST_NAME TAG_NAME=TAG_NAME
+    desc: > 
+      AnsibleのPlaybookの差分を確認します. 
+      例 task check-ansible-diff -v HOST_NAME=HOST_NAME TAG_NAME=TAG_NAME
     vars:
-      HOST_NAME: "all"
-      TAG_NAME: "all"
-    silent: true
+      HOST_NAME: '{{.HOST_NAME | default "all"}}'
+      TAG_NAME: '{{.TAG_NAME | default "all"}}'
+    silent: false
 
   apply-ansible-playbook:
     cmds:
       - ansible-playbook -i inventory/hosts site.yml --limit {{.HOST_NAME}} --tags {{.TAG_NAME}}
-    desc: AnsibleのPlaybookを適用します. 例 task apply-ansible-playbook -- HOST_NAME=HOST_NAME TAG_NAME=TAG_NAME
+    desc: > 
+      AnsibleのPlaybookを適用します. 
+      例 task apply-ansible-playbook -v HOST_NAME=HOST_NAME TAG_NAME=TAG_NAME
     vars:
-      HOST_NAME: "all"
-      TAG_NAME: "all"
-    silent: true
+      HOST_NAME: '{{.HOST_NAME | default "all"}}'
+      TAG_NAME: '{{.TAG_NAME | default "all"}}'
+    silent: false
 
   apply-ssh-config:
     cmds:
