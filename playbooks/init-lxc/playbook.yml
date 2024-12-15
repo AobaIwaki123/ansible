@@ -2,6 +2,7 @@
 - name: Initialize LXC
   hosts: proxmox_lxc
   roles:
+    - install_sudo
     - {role: basic_apt_package, basic_apt_package_apt_upgrade: true}
     - default_configs
     - default_cmd
