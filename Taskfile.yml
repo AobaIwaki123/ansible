@@ -9,7 +9,7 @@ tasks:
   
   create-ansible-role:
     cmds:
-      - ansible-galaxy init roles/{{.CLI_ARGS}}
+      - cp -r templates/role roles/{{.CLI_ARGS}}
     desc: AnsibleのRoleの雛形を作成します. 例 task create-ansible-role -- MY_ROLE
     silent: true
 

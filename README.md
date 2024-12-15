@@ -14,7 +14,7 @@
 - `~/.ssh/config`に以下の設定を追加する
 
 ```sh
-Include ~/.ssh/config.d/*.conf
+Include ~/.ssh/ssh_config.d/*.conf
 ```
 
 - Ansible用のホストを`./ssh_config.d/`に設定し、以下のコマンドを実行する
