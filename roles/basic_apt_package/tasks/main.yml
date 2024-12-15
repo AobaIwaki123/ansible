@@ -2,18 +2,15 @@
 ---
 # tasks file for roles/common
 - name: Apt Update
-  become: true
   ansible.builtin.apt:
     update_cache: true
 
 - name: Apt Update and Upgrade
-  become: true
   ansible.builtin.apt:
     upgrade: dist # same as apt-get upgrade
   when: apt_upgrade is true
 
 - name: Install essential packages
-  become: true
   ansible.builtin.apt:
     pkg:
       - htop # リソース管理コマンドtopより見やすい。
