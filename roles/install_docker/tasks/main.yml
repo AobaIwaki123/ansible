@@ -28,6 +28,20 @@
     state: present
   when: ansible_facts['distribution'] == "Ubuntu"
 
+- name: New add docker apt key for Debian
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: '0644'
+    backup: true
+  when: ansible_facts['distribution'] == "Debian"
+
+- name: Add docker apt repo for Debian
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_facts['distribution_release'] }} stable"
+    state: present
+  when: ansible_facts['distribution'] == "Debian"
+
 - name: Update Apt cache
   ansible.builtin.apt:
     update_cache: true
