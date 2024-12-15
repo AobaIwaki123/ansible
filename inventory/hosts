@@ -9,3 +9,6 @@ proxmox_lxc:
     ansible.lxc:
     kotlin.lxc:
     bot.lxc:
+proxmox_node:
+  hosts:
+    pve04.node:
