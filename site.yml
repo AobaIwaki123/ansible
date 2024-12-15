@@ -3,6 +3,18 @@
   import_playbook: playbooks/init-vm/playbook.yml
   tags: init-vm
 
+- name: Update VM
+  import_playbook: playbooks/update-vm/playbook.yml
+  tags: update-vm
+
 - name: Initialize LXC
   import_playbook: playbooks/init-lxc/playbook.yml
   tags: init-lxc
+
+- name: Update LXC
+  import_playbook: playbooks/update-lxc/playbook.yml
+  tags: update-lxc
+
+- name: Initialize Node
+  import_playbook: playbooks/init-node/playbook.yml
+  tags: init-node

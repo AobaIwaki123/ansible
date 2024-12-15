@@ -1,15 +1,16 @@
 # SPDX-License-Identifier: MIT-0
 ---
 # tasks file for roles/common
-- name: Apt Update and Upgrade
-  become: true
+- name: Apt Update
   ansible.builtin.apt:
-    update_cache: true # same as apt-get update
+    update_cache: true
+
+- name: Apt Update and Upgrade
+  ansible.builtin.apt:
     upgrade: dist # same as apt-get upgrade
   when: apt_upgrade is true
 
 - name: Install essential packages
-  become: true
   ansible.builtin.apt:
     pkg:
       - htop # リソース管理コマンドtopより見やすい。

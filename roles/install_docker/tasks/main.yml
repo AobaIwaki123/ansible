@@ -2,7 +2,6 @@
 ---
 # tasks file for roles/install_docker
 - name: Install prerequisites for Docker repository
-  become: true
   ansible.builtin.apt:
     pkg:
       - ca-certificates
@@ -16,7 +15,6 @@
     msg: "{{ ansible_facts['distribution'] }}"
 
 - name: New add docker apt key for Ubuntu
-  become: true
   ansible.builtin.get_url:
     url: https://download.docker.com/linux/ubuntu/gpg
     dest: /etc/apt/keyrings/docker.asc
@@ -25,19 +23,30 @@
   when: ansible_facts['distribution'] == "Ubuntu"
 
 - name: Add docker apt repo for Ubuntu
-  become: true
   ansible.builtin.apt_repository:
     repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_facts['distribution_release'] }} stable"
     state: present
   when: ansible_facts['distribution'] == "Ubuntu"
 
+- name: New add docker apt key for Debian
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: '0644'
+    backup: true
+  when: ansible_facts['distribution'] == "Debian"
+
+- name: Add docker apt repo for Debian
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_facts['distribution_release'] }} stable"
+    state: present
+  when: ansible_facts['distribution'] == "Debian"
+
 - name: Update Apt cache
-  become: true
   ansible.builtin.apt:
     update_cache: true
 
 - name: Install a list of packages
-  become: true
   ansible.builtin.apt:
     pkg:
       - docker-ce
@@ -51,14 +60,12 @@
     autoremove: true
 
 - name: Start and enable docker daemon
-  become: true
   ansible.builtin.service:
     name: docker
     state: started
     enabled: true
 
 - name: Start and enable containerd daemon
-  become: true
   ansible.builtin.service:
     name: containerd
     state: started
