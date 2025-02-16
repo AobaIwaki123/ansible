@@ -2,6 +2,6 @@
 - name: Initialize LXC
   hosts: proxmox_lxc
   roles:
-    - {role: basic_apt_package, basic_apt_package_apt_upgrade: false}
+    - {role: basic_apt_package, apt_upgrade: false}
     - default_configs
     - default_cmd
