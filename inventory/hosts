@@ -2,3 +2,6 @@
 proxmox_vm:
   hosts:
     terraform.vm:
+proxmox_lxc:
+  hosts:
+    ansible.lxc:
