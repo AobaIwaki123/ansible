@@ -2,7 +2,7 @@
 ---
 # tasks file for roles/setup_exporter
 - name: Run Node Exporter
-  become: true
+  become: "{{ enable_sudo | default(true) }}"
   community.docker.docker_container:
     name: node-exporter
     image: prom/node-exporter:v1.8.2

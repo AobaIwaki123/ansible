@@ -2,7 +2,7 @@
 ---
 # tasks file for roles/example
 - name: Install task cmd
-  become: true
+  become: "{{ enable_sudo | default(true) }}"
   ansible.builtin.copy:
     src: files/task
     dest: /usr/local/bin/task
@@ -11,7 +11,7 @@
     mode: '0755'
 
 - name: Set Bash Completion for Task
-  become: true
+  become: "{{ enable_sudo | default(true) }}"
   ansible.builtin.copy:
     src: files/task_completion
     dest: /etc/bash_completion.d/task_completion

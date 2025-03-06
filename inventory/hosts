@@ -1,10 +1,4 @@
 ---
 proxmox_vm:
   hosts:
-    ansible.vm:
-    monitor.vm:
-proxmox_node:
-  hosts:
-    pve201.node:
-    pve202.node:
-    pve203.node:
+    terraform.vm:
