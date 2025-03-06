@@ -5,3 +5,4 @@ proxmox_vm:
 proxmox_lxc:
   hosts:
     ansible.lxc:
+    monitor.lxc:
