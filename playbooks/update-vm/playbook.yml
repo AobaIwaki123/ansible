@@ -1,7 +1,0 @@
----
-- name: Initialize VM
-  hosts: proxmox_vm
-  roles:
-    - {role: basic_apt_package, apt_upgrade: false}
-    - default_configs
-    - default_cmd
