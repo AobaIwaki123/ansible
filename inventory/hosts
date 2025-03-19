@@ -1,8 +1,8 @@
 ---
 proxmox_vm:
   hosts:
-    terraform.vm:
     monitor.vm:
 proxmox_lxc:
   hosts:
     ansible.lxc:
+    terraform.lxc:
