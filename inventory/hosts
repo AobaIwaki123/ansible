@@ -1,7 +1,11 @@
 ---
 proxmox_vm:
   hosts:
-    monitor.vm:
+    k8s-client.vm:
+    k8s-ctl.vm:
+    k8s-worker-1.vm:
+    k8s-worker-2.vm:
+    k8s-worker-3.vm:
 proxmox_lxc:
   hosts:
     ansible.lxc:
