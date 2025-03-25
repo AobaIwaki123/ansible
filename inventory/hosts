@@ -8,5 +8,4 @@ proxmox_vm:
     k8s-worker-3.vm:
 proxmox_lxc:
   hosts:
-    ansible.lxc:
-    terraform.lxc:
+    hnz.lxc:
