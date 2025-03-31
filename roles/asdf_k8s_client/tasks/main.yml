@@ -11,7 +11,8 @@
 - name: Unzip asdf binary
   become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
   ansible.builtin.command:
-    tar -xzvf /tmp/asdf-v0.16.6-linux-amd64.tar.gz -C /tmp
+    cmd: tar -xzvf /tmp/asdf-v0.16.6-linux-amd64.tar.gz -C /tmp
+    creates: /tmp/asdf
 
 - name: Install asdf
   become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
