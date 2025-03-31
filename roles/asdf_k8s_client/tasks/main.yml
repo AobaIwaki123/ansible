@@ -4,8 +4,8 @@
 - name: Install asdf
   become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
   ansible.builtin.shell: |
-    wget https://github.com/asdf-vm/asdf/releases/download/v0.16.6/asdf-v0.16.6-linux-amd64.tar.gz 
-    tar -xzvf asdf-v0.16.6-linux-amd64.tar.gz 
+    wget https://github.com/asdf-vm/asdf/releases/download/v0.16.6/asdf-v0.16.6-linux-amd64.tar.gz
+    tar -xzvf asdf-v0.16.6-linux-amd64.tar.gz
     sudo install asdf /usr/bin
     rm -rf asdf-v0.16.6-linux-amd64.tar.gz
     rm -rf asdf
@@ -15,10 +15,11 @@
     msg: "Ansible Version: 0.16.6"
 
 - name: Insert asdf PATH
+  become: false
   ansible.builtin.lineinfile:
     path: ~/.bashrc
     line: 'export PATH=$PATH:$HOME/.asdf/shims'
-    create: yes
+    create: true
     state: present
 
 - name: Install k0sctl
