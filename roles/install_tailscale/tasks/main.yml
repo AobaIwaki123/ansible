@@ -2,7 +2,7 @@
 ---
 # tasks file for roles/install_tailscale
 - name: Add Tailscale GPG Key
-  become: "{{ enable_sudo | default(true) }}"
+  become: "{{ install_tailscale_enable_sudo | default(true) }}"
   ansible.builtin.get_url:
     url: https://pkgs.tailscale.com/stable/ubuntu/oracular.noarmor.gpg
     dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
@@ -10,7 +10,7 @@
     backup: true
 
 - name: Add Tailscale apt repository
-  become: "{{ enable_sudo | default(true) }}"
+  become: "{{ install_tailscale_enable_sudo | default(true) }}"
   ansible.builtin.get_url:
     url: https://pkgs.tailscale.com/stable/ubuntu/oracular.tailscale-keyring.list
     dest: /etc/apt/sources.list.d/tailscale.list
@@ -18,13 +18,13 @@
     backup: true
 
 - name: Update Apt cache
-  become: "{{ enable_sudo | default(true) }}"
+  become: "{{ install_tailscale_enable_sudo | default(true) }}"
   ansible.builtin.apt:
     update_cache: true
     force_apt_get: true
 
 - name: Install Tailscale
-  become: "{{ enable_sudo | default(true) }}"
+  become: "{{ install_tailscale_enable_sudo | default(true) }}"
   ansible.builtin.apt:
     pkg:
       - tailscale

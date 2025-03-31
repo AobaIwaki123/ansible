@@ -2,17 +2,17 @@
 ---
 # tasks file for roles/common
 - name: Apt Update
-  become: "{{ enable_sudo | default(true) }}"
+  become: "{{ basic_apt_package_enable_sudo | default(true) }}"
   ansible.builtin.apt:
     update_cache: true
 
 - name: Apt Update and Upgrade
-  become: "{{ enable_sudo | default(true) }}"
+  become: "{{ basic_apt_package_enable_sudo | default(true) }}"
   ansible.builtin.apt:
     upgrade: dist # same as apt-get upgrade
 
 - name: Install essential packages
-  become: "{{ enable_sudo | default(true) }}"
+  become: "{{ basic_apt_package_enable_sudo | default(true) }}"
   ansible.builtin.apt:
     pkg:
       - htop # リソース管理コマンドtopより見やすい。

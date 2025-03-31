@@ -1,8 +1,7 @@
 ---
 proxmox_vm:
   hosts:
-    monitor.vm:
+    k8s-worker-4.vm:
 proxmox_lxc:
   hosts:
-    ansible.lxc:
-    terraform.lxc:
+    hnz.lxc:

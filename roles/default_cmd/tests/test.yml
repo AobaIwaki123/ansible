@@ -4,4 +4,4 @@
   hosts: localhost
   remote_user: root
   roles:
-    - template
+    - {role: default_cmd, default_cmd_enable_sudo: true}

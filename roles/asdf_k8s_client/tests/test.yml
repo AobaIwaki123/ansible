@@ -4,4 +4,4 @@
   hosts: localhost
   remote_user: root
   roles:
-    - template
+    - {role: asdf_k8s_client, asdf_k8s_client_enable_sudo: true}

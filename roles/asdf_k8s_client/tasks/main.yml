@@ -1,0 +1,62 @@
+# SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/example
+- name: Get asdf binary
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
+  ansible.builtin.get_url:
+    url: https://github.com/asdf-vm/asdf/releases/download/v0.16.6/asdf-v0.16.6-linux-amd64.tar.gz
+    dest: /tmp/asdf-v0.16.6-linux-amd64.tar.gz
+    mode: '0644'
+
+- name: Unzip asdf binary
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
+  ansible.builtin.unarchive:
+    src: /tmp/asdf-v0.16.6-linux-amd64.tar.gz
+    dest: /tmp
+    remote_src: true
+    creates: /tmp/asdf
+
+- name: Remove asdf tar.gz after install
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
+  ansible.builtin.file:
+    path: /tmp/asdf-v0.16.6-linux-amd64.tar.gz
+    state: absent
+
+- name: Install asdf
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
+  ansible.builtin.copy:
+    src: /tmp/asdf
+    remote_src: true
+    dest: /usr/bin/asdf
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Remove extracted asdf directory
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
+  ansible.builtin.file:
+    path: /tmp/asdf
+    state: absent
+
+- name: Installed asdf Version
+  ansible.builtin.debug:
+    msg: "Ansible Version: 0.16.6"
+
+- name: Insert asdf PATH
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    line: 'export PATH=$PATH:$HOME/.asdf/shims'
+    create: true
+    state: present
+    mode: '0644'
+
+- name: Install tools via asdf
+  ansible.builtin.shell: |
+    asdf plugin add {{ item }}
+    asdf install {{ item }} latest
+    asdf set -u {{ item }} latest
+  with_items:
+    - k0sctl
+    - k9s
+    - kubectl
+    - argocd
