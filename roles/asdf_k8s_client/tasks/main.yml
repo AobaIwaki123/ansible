@@ -48,22 +48,9 @@
     state: present
     mode: '0644'
 
-- name: Check installed asdf plugins
-  ansible.builtin.shell: asdf plugin list
-  register: asdf_plugins
-  changed_when: false
-
-- name: Add asdf plugin if not present
-  ansible.builtin.shell: asdf plugin add {{ item }}
-  when: "'{{ item }}' not in asdf_plugins.stdout_lines"
-  with_items:
-    - k0sctl
-    - k9s
-    - kubectl
-    - argocd
-
-- name: Install latest version of tool with asdf
+- name: Install tools via asdf
   ansible.builtin.shell: |
+    asdf plugin add {{ item }}
     asdf install {{ item }} latest
     asdf global {{ item }} latest
   with_items:
