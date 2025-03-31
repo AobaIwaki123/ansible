@@ -6,7 +6,3 @@
 - name: Initialize LXC
   import_playbook: playbooks/init-lxc/playbook.yml
   tags: init-lxc
-
-- name: Initialize Node
-  import_playbook: playbooks/init-node/playbook.yml
-  tags: init-node

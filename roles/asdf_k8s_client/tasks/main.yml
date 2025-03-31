@@ -1,21 +1,40 @@
 # SPDX-License-Identifier: MIT-0
 ---
 # tasks file for roles/example
-- name: Install asdf
+- name: Get asdf binary
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
+  ansible.builtin.get_url:
+    url: https://github.com/asdf-vm/asdf/releases/download/v0.16.6/asdf-v0.16.6-linux-amd64.tar.gz
+    dest: /tmp/asdf-v0.16.6-linux-amd64.tar.gz
+    mode: '0644'
+
+- name: Unzip asdf binary
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
+  ansible.builtin.shell:
+    tar -xzvf /tmp/asdf-v0.16.6-linux-amd64.tar.gz -C /tmp
+
+- name: Install asdf 
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
+  ansible.builtin.copy:
+    src: /tmp/asdf
+    remote_src: true
+    dest: /usr/bin/asdf
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Post asdf Install
   become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
   ansible.builtin.shell: |
-    wget https://github.com/asdf-vm/asdf/releases/download/v0.16.6/asdf-v0.16.6-linux-amd64.tar.gz
-    tar -xzvf asdf-v0.16.6-linux-amd64.tar.gz
-    sudo install asdf /usr/bin
-    rm -rf asdf-v0.16.6-linux-amd64.tar.gz
-    rm -rf asdf
+    rm -rf /tmp/asdf-v0.16.6-linux-amd64.tar.gz
+    rm -rf /tmp/asdf
 
 - name: Installed asdf Version
   ansible.builtin.debug:
     msg: "Ansible Version: 0.16.6"
 
 - name: Insert asdf PATH
-  become: false
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
   ansible.builtin.lineinfile:
     path: ~/.bashrc
     line: 'export PATH=$PATH:$HOME/.asdf/shims'
@@ -24,19 +43,19 @@
 
 - name: Install k0sctl
   ansible.builtin.shell: |
-    asdf plugin add k0sctl 
+    asdf plugin add k0sctl
     asdf install k0sctl latest
     asdf set -u k0sctl latest
 
 - name: Install k9s
   ansible.builtin.shell: |
-    asdf plugin add k9s 
+    asdf plugin add k9s
     asdf install k9s latest
     asdf set -u k9s latest
 
 - name: Install kubectl
   ansible.builtin.shell: |
-    asdf plugin add kubectl 
+    asdf plugin add kubectl
     asdf install kubectl latest
     asdf set -u kubectl latest
 
