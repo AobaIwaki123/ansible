@@ -14,6 +14,12 @@
     cmd: tar -xzvf /tmp/asdf-v0.16.6-linux-amd64.tar.gz -C /tmp
     creates: /tmp/asdf
 
+- name: Remove asdf tar.gz after install
+  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
+  ansible.builtin.file:
+    path: /tmp/asdf-v0.16.6-linux-amd64.tar.gz
+    state: absent
+
 - name: Install asdf
   become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
   ansible.builtin.copy:
@@ -24,11 +30,11 @@
     group: root
     mode: '0755'
 
-- name: Post asdf Install
+- name: Remove extracted asdf directory
   become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
-  ansible.builtin.shell: |
-    rm -rf /tmp/asdf-v0.16.6-linux-amd64.tar.gz
-    rm -rf /tmp/asdf
+  ansible.builtin.file:
+    path: /tmp/asdf
+    state: absent
 
 - name: Installed asdf Version
   ansible.builtin.debug:
@@ -42,9 +48,22 @@
     state: present
     mode: '0644'
 
-- name: Install tools via asdf
+- name: Check installed asdf plugins
+  ansible.builtin.shell: asdf plugin list
+  register: asdf_plugins
+  changed_when: false
+
+- name: Add asdf plugin if not present
+  ansible.builtin.shell: asdf plugin add {{ item }}
+  when: "'{{ item }}' not in asdf_plugins.stdout_lines"
+  with_items:
+    - k0sctl
+    - k9s
+    - kubectl
+    - argocd
+
+- name: Install latest version of tool with asdf
   ansible.builtin.shell: |
-    asdf plugin add {{ item }}
     asdf install {{ item }} latest
     asdf global {{ item }} latest
   with_items:
