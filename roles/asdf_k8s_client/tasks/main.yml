@@ -10,10 +10,10 @@
 
 - name: Unzip asdf binary
   become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
-  ansible.builtin.shell:
+  ansible.builtin.command:
     tar -xzvf /tmp/asdf-v0.16.6-linux-amd64.tar.gz -C /tmp
 
-- name: Install asdf 
+- name: Install asdf
   become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
   ansible.builtin.copy:
     src: /tmp/asdf
@@ -34,34 +34,22 @@
     msg: "Ansible Version: 0.16.6"
 
 - name: Insert asdf PATH
-  become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
   ansible.builtin.lineinfile:
     path: ~/.bashrc
     line: 'export PATH=$PATH:$HOME/.asdf/shims'
     create: true
     state: present
+    mode: '0644'
 
-- name: Install k0sctl
+- name: Install tools via asdf
   ansible.builtin.shell: |
-    asdf plugin add k0sctl
-    asdf install k0sctl latest
-    asdf set -u k0sctl latest
+    asdf plugin add {{ item }}
+    asdf install {{ item }} latest
+    asdf global {{ item }} latest
+  with_items:
+    - k0sctl
+    - k9s
+    - kubectl
+    - argocd
 
-- name: Install k9s
-  ansible.builtin.shell: |
-    asdf plugin add k9s
-    asdf install k9s latest
-    asdf set -u k9s latest
-
-- name: Install kubectl
-  ansible.builtin.shell: |
-    asdf plugin add kubectl
-    asdf install kubectl latest
-    asdf set -u kubectl latest
-
-- name: Install argocd
-  ansible.builtin.shell: |
-    asdf plugin add argocd 
-    asdf install argocd latest
-    asdf set -u argocd latest
 
