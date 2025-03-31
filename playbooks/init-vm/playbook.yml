@@ -2,7 +2,7 @@
 - name: Initialize VM
   hosts: proxmox_vm
   roles:
-    # - {role: basic_apt_package, enable_sudo: true}
+    # - {role: basic_apt_package, basic_apt_package_enable_sudo: true}
     # - {role: default_configs, enable_sudo: true}
     # - {role: default_cmd, enable_sudo: true}
     # - {role: install_docker, enable_sudo: true}

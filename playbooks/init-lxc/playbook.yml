@@ -2,7 +2,7 @@
 - name: Initialize LXC
   hosts: proxmox_lxc
   roles:
-    - {role: basic_apt_package, enable_sudo: false}
+    - {role: basic_apt_package, basic_apt_package_enable_sudo: false}
     # - {role: default_configs, enable_sudo: false}
     - {role: default_cmd, enable_sudo: false}
     - {role: install_docker, enable_sudo: false}
