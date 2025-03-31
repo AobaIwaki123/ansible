@@ -10,8 +10,10 @@
 
 - name: Unzip asdf binary
   become: "{{ asdf_k8s_client_enable_sudo | default(true) }}"
-  ansible.builtin.command:
-    cmd: tar -xzvf /tmp/asdf-v0.16.6-linux-amd64.tar.gz -C /tmp
+  ansible.builtin.unarchive:
+    src: /tmp/asdf-v0.16.6-linux-amd64.tar.gz
+    dest: /tmp
+    remote_src: true
     creates: /tmp/asdf
 
 - name: Remove asdf tar.gz after install
@@ -52,7 +54,7 @@
   ansible.builtin.shell: |
     asdf plugin add {{ item }}
     asdf install {{ item }} latest
-    asdf global {{ item }} latest
+    asdf set -u {{ item }} latest
   with_items:
     - k0sctl
     - k9s
