@@ -1,7 +1,10 @@
 ---
 proxmox_vm:
   hosts:
-    k8s-worker-4.vm:
+    k8s-ctl.vm:
+    k8s-worker-1.vm:
+    k8s-worker-2.vm:
+    k8s-worker-3.vm:
 proxmox_lxc:
   hosts:
-    hnz.lxc:
+    k8s-client.lxc:

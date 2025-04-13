@@ -6,5 +6,4 @@
     - {role: default_configs}
     - {role: default_cmd, default_cmd_enable_sudo: false}
     - {role: install_docker, install_docker_enable_sudo: false}
-    - {role: setup_exporter, setup_exporter_enable_sudo: false}
-    - {role: install_tailscale, install_tailscale_enable_sudo: false}
+    - {role: asdf_k8s_client, asdf_k8s_client_enable_sudo: true}  
