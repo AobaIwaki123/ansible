@@ -7,12 +7,6 @@ tasks:
     desc: 利用可能なタスクを表示します
     silent: true
   
-  create-ansible-role:
-    cmds:
-      - cp -r templates/role roles/{{.CLI_ARGS}}
-    desc: AnsibleのRoleの雛形を作成します. 例 task create-ansible-role -- MY_ROLE
-    silent: true
-
   ping-ansible-hosts:
     cmds:
       - ansible -i inventory/hosts all -m ping

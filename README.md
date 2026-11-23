@@ -23,12 +23,6 @@ Include ~/.ssh/ssh_config.d/*.conf
 $ task apply-ssh-config
 ```
 
-## Ansible Roleの雛形の作成
-
-```sh
-$ task create-ansible-role -- MY_ROLE
-```
-
 ## 疎通確認
 
 ```sh
@@ -72,11 +66,6 @@ $ task apply-ansible-playbook -v HOST_NAME={HOST_NAME} # Hostを指定して実�
 ```sh
 $ task clean-branch
 ```
-
-## その他のドキュメント
-
-- [Install Conda](docs/install-conda.md)
-- [Install uv](docs/install-uv.md)
 
 # Ref
 
