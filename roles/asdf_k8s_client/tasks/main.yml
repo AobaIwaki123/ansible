@@ -50,7 +50,8 @@
     state: present
     mode: '0644'
 
-- name: Install tools via asdf
+# This existing task may change the installed version on each run.
+- name: Install tools via asdf # noqa: no-changed-when
   ansible.builtin.shell: |
     asdf plugin add {{ item }}
     asdf install {{ item }} latest
