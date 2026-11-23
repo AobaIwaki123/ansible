@@ -32,7 +32,7 @@ $ task create-ansible-role -- MY_ROLE
 ## 疎通確認
 
 ```sh
-$ task ping-ansible-host
+$ task ping-ansible-hosts
 ```
 
 ## AnsibleのRoleやPlaybookの構文チェック
@@ -75,7 +75,6 @@ $ task clean-branch
 
 ## その他のドキュメント
 
-- [Ansibleのコマンド例](docs/ansible-cmd.md)
 - [Install Conda](docs/install-conda.md)
 - [Install uv](docs/install-uv.md)
 
