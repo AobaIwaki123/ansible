@@ -41,12 +41,6 @@ tasks:
       TAG_NAME: '{{.TAG_NAME | default "all"}}'
     silent: false
 
-  apply-ssh-config:
-    cmds:
-      - cp -r ssh_config.d ~/.ssh/
-    desc: Ansibleホストに関するSSH Configを適用します
-    silent: true
-
   clean-branch:
     cmds:
       - git remote prune origin

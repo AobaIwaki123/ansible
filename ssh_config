@@ -1,0 +1,2 @@
+Include ${PWD}/ssh_config.d/*.conf
+Include ~/.ssh/config
