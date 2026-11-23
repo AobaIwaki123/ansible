@@ -9,25 +9,13 @@
 - Ansible: 11.0.0, https://github.com/ansible/ansible
   - Ansible Core: 2.18.0
 
-## SSH Configの設定
+## SSH 設定
 
-- `~/.ssh/config`に以下の設定を追加する
+リポジトリのルートから実行すると、Ansible は `ssh_config.d/` の設定と
+既存の `~/.ssh/config` を読み込みます。設定ファイルをホームディレクトリへ
+コピーする必要はありません。秘密鍵は各自の環境に用意してください。
 
-```sh
-Include ~/.ssh/ssh_config.d/*.conf
-```
-
-- Ansible用のホストを`./ssh_config.d/`に設定し、以下のコマンドを実行する
-
-```sh
-$ task apply-ssh-config
-```
-
-## Ansible Roleの雛形の作成
-
-```sh
-$ task create-ansible-role -- MY_ROLE
-```
+直接 SSH する場合は `ssh -F ssh_config k8s-ctl.vm` のように指定します。
 
 ## 疎通確認
 
@@ -72,11 +60,6 @@ $ task apply-ansible-playbook -v HOST_NAME={HOST_NAME} # Hostを指定して実�
 ```sh
 $ task clean-branch
 ```
-
-## その他のドキュメント
-
-- [Install Conda](docs/install-conda.md)
-- [Install uv](docs/install-uv.md)
 
 # Ref
 
